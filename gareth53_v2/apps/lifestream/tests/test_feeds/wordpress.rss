@@ -1,0 +1,55 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+<channel>
+	<title>Gareth Senior</title>
+	<atom:link href="http://gareth53.wordpress.com/feed/" rel="self" type="application/rss+xml" />
+	<link>http://gareth53.wordpress.com</link>
+	<description>Following the path of least resistence</description>
+	<lastBuildDate>Wed, 24 Apr 2013 13:16:51 +0000</lastBuildDate>
+	<language>en</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.com/</generator>
+<cloud domain='gareth53.wordpress.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+<image>
+		<url>http://s2.wp.com/i/buttonw-com.png</url>
+		<title>Gareth Senior</title>
+		<link>http://gareth53.wordpress.com</link>
+	</image>
+	<atom:link rel="search" type="application/opensearchdescription+xml" href="http://gareth53.wordpress.com/osd.xml" title="Gareth Senior" />
+	<atom:link rel='hub' href='http://gareth53.wordpress.com/?pushpress=hub'/>
+		<item>
+		<title>Moving to WordPress</title>
+		<link>http://gareth53.wordpress.com/2013/04/24/moving-to-wordpress/</link>
+		<comments>http://gareth53.wordpress.com/2013/04/24/moving-to-wordpress/#comments</comments>
+		<pubDate>Wed, 24 Apr 2013 13:16:48 +0000</pubDate>
+		<dc:creator>gareth53</dc:creator>
+				<category><![CDATA[Uncategorized]]></category>
+
+		<guid isPermaLink="false">http://gareth53.wordpress.com/?p=3</guid>
+		<description><![CDATA[So, here I am. I have blogged on my own domain but posts became ever more sporadic as time passed. I think I probably spent more time building my own blogging application that I did actually writing on the damn thing. But that&#8217;s OK. It was a learning process. I learned a lot. I learned [...]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=gareth53.wordpress.com&#038;blog=50990071&#038;post=3&#038;subd=gareth53&#038;ref=&#038;feed=1" width="1" height="1" />]]></description>
+				<content:encoded><![CDATA[<p>So, here I am.</p>
+<p>I have blogged on my own domain but posts became ever more sporadic as time passed.</p>
+<p>I think I probably spent more time building my own blogging application that I did actually writing on the damn thing. But that&#8217;s OK. It was a learning process. I learned a lot. I learned a lot of technical skills, I also learned that I couldn&#8217;t be bothered developing and maintaining my own blogging software <img src='http://s1.wp.com/wp-includes/images/smilies/icon_wink.gif' alt=';)' class='wp-smiley' /> </p>
+<p>So my own site will probably become something else. Something simpler. Something that burbles along on its own without the need for me to lok=ok after it.</p>
+<p>And WordPress.com will be where I blog. If I ever get around to doing so.</p>
+<br />  <a rel="nofollow" href="http://feeds.wordpress.com/1.0/gocomments/gareth53.wordpress.com/3/"><img alt="" border="0" src="http://feeds.wordpress.com/1.0/comments/gareth53.wordpress.com/3/" /></a> <img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=gareth53.wordpress.com&#038;blog=50990071&#038;post=3&#038;subd=gareth53&#038;ref=&#038;feed=1" width="1" height="1" />]]></content:encoded>
+			<wfw:commentRss>http://gareth53.wordpress.com/2013/04/24/moving-to-wordpress/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+	
+		<media:content url="http://1.gravatar.com/avatar/443f842a7ad032ac1943ab9cd953a885?s=96&#38;d=identicon&#38;r=G" medium="image">
+			<media:title type="html">gareth53</media:title>
+		</media:content>
+	</item>
+	</channel>
+</rss>

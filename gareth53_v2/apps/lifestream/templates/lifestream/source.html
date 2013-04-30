@@ -1,0 +1,30 @@
+{% extends 'root.html' %}
+{% load url_filters %}
+
+
+{% block content %}
+
+    <h1>{{ source.name }}</h1>
+
+    {% if source.description %}
+    <p>
+        {{ source.description }}
+    </p>
+    {% endif %}
+
+    <ul class="source_details">
+        {% if source.last_update %}<li>Updated: {{ source.last_update }}</li>{% endif %}
+        {% if source.profile %}<li>Profile: <a href="{{ source.profle }}">{{ source.profile|url_for_display }}</a></li>{% endif %}
+        {% if source.website %}<li>Site: <a href="{{ source.website }}">{{ source.website|url_for_display }}</a></li>{% endif %}
+    </ul>
+
+    {% if items %}
+        <p>Last check: {{ source.last_check }}</p>
+        {% for item in items %}
+            <article><a href="{{ item.slug }}">{{ item.title }}</a> ({{ item.pub_date }})</a></article>
+        {% endfor %}
+    {% else %}
+        <p>No items retrieved from this source.</p>
+    {% endif %}
+
+{% endblock %}

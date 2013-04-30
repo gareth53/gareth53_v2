@@ -1,0 +1,19 @@
+{% extends 'root.html' %}
+
+{% block content %}
+
+    <h1>All Feeds</h1>
+
+    {% if sources %}
+    <ul class="source_list">
+        {% for source in sources %}
+        <li>
+            <a href="{{ source.get_absolute_url }}">{{ source.name }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No feeds added yet.</p>
+    {% endif %}
+
+{% endblock %}

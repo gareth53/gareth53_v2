@@ -1,0 +1,34 @@
+{% extends 'root.html' %}
+
+{% block content %}
+
+
+{% if sources %}
+    <div class="sources">
+        <h2>Sources</h2>
+        <ul>
+            {% for source in sources %}
+            <li><a href="{{ source.get_absolute_url }}">{{ source.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    {% if items %}
+        {% for item in items %}
+            <article>
+                <h2>{% if item.slug %}<a href="{{ item.slug }}">{% endif %}{{ item.title }}{% if item.slug %}</a>{% endif %}</h2>
+                <p class="date">({{ item.pub_date }})</p>
+                <p>{{ item.description|safe }}</p>
+            </article>
+        {% endfor %}
+    {% else %}
+        <p>No items to display.</p>
+    {% endif %}
+
+{% else %}
+    <p>No feeds to display.</p>
+{% endif %}
+
+
+
+{% endblock content  %}

@@ -1,0 +1,8 @@
+
+<nav>
+    <ul>
+{% for nav in nav_links %}
+        <li><a href="{{ nav.link }}">{{ nav.text }}</a></li>
+{% endfor %}
+    </ul>
+</nav>

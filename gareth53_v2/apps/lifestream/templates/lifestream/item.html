@@ -1,0 +1,13 @@
+{% extends 'root.html' %}
+
+{% block content %}
+    <article>
+        <h1><a href="{{ item.url }}">{{ item.title }}</a></h1>
+
+        <p>Sourced from: <a href="{{ item.feed.get_absolute_url }}">{{ item.feed.name }}</a></p>
+
+        <p>{{ item.pub_date }}</p>
+
+        <p>{{ item.description|safe }}</p>
+    </article>
+{% endblock %}
