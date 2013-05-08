@@ -23,6 +23,7 @@ class Command(NoArgsCommand):
         else:
             # gets the most stale feed
             source = Source.objects.filter(url__isnull=False).order_by('last_check')[0]
+        # TODO - handle RSS feeds that require authentication
         contents = feedparser.parse(source.url)
         create_items(source, contents)
 
