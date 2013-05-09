@@ -33,6 +33,10 @@ class Item(models.Model):
     """
     An individual update/news item/tweet/event ... whatever
     """
+    
+    class Meta:
+        ordering = ('-pub_date', )
+    
     feed = models.ForeignKey(Source)
     url = models.URLField()
 

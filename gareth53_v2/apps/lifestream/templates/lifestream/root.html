@@ -21,6 +21,23 @@
                 <p>{{ item.description|safe }}</p>
             </article>
         {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if curr_page.has_previous %}
+                    <a href="?page={{ curr_page.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ curr_page.number }} of {{ paginator.num_pages }}.
+                </span>
+
+                {% if curr_page.has_next %}
+                    <a href="?page={{ curr_page.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+
     {% else %}
         <p>No items to display.</p>
     {% endif %}

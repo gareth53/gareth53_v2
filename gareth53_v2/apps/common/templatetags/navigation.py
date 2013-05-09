@@ -9,7 +9,7 @@ def render_navigation():
     template tag that renders the main site navigation
     """
     # TODO, if ew're veiwing the current link, don't link that one
-    # TODO if we're linking to a secion, highlight it, but maintain the link
+    # TODO if we're linking to a section, highlight it, but maintain the link
     return {
         "nav_links": settings.NAVIGATION
     }

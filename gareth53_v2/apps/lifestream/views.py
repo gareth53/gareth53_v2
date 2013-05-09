@@ -1,7 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
 from django.shortcuts import render
-#from django.views.generic import DetailView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Source, Item
 
 def source_list(request):
@@ -12,18 +12,30 @@ def source_list(request):
 
 
 def item_list(request):
+    
     sources = Source.objects.filter(active=True).order_by('-last_update')
     if sources:
         sources_subset = sources[0:10]
     subset = False
     if len(sources_subset) < len(sources):
         subset = True
+    paginator = Paginator(Item.objects.all(), 100)
+    page_no = request.GET['page'] or 1
+    try:
+        curr_page = paginator.page(page_no)
+    except EmptyPage, PageNotAnInteger:
+        # If page is not an integer or page is out of range (e.g. 9999) deliver first page.
+        # TODO: return a 404 error
+        curr_page = paginator.page(1)
     context = {
         'sources': sources_subset,
         'subset': subset,
-        'items': Item.objects.all()
+        'items': curr_page.object_list,
+        'curr_page': curr_page,
+        'paginator': paginator
     }
     return render(request, 'lifestream/root.html', context)
+
 
 def source(request, source_slug):
     source = Source.objects.get(slug=source_slug, active=True)

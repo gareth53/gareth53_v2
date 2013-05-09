@@ -9,7 +9,7 @@ register = template.Library()
 @stringfilter
 def url_for_display(value):
     """
-    removes the protocol prefix form URLs for display purposes
+    removes the protocol prefix from URLs for display purposes
     """
     protocol = re.compile('^[a-zA-Z]{3,5}://')
     trailer = re.compile('/$')
