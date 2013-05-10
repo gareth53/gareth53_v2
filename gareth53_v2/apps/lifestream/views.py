@@ -2,7 +2,9 @@ from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from .models import Source, Item
+from .utils import group_items
 
 def source_list(request):
     context = {
@@ -27,6 +29,9 @@ def item_list(request):
         # If page is not an integer or page is out of range (e.g. 9999) deliver first page.
         # TODO: return a 404 error
         curr_page = paginator.page(1)
+
+    items = group_items(curr_page.object_list)
+
     context = {
         'sources': sources_subset,
         'subset': subset,

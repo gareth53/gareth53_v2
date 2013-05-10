@@ -78,3 +78,51 @@ def get_timezone(datestring):
     if re.compile('^[+-][0-9]{4}$').match(last_bit):
         return last_bit
     return None
+
+
+def group_items(items):
+    """
+    I want to group itms by DAY of pub_date and then by type, a list of objects
+    the look something like this:
+    {
+        'date': <dateObject>,
+        'sources': [
+            {
+                source: <sourceObject>,
+                items: <item QuerySet ordered by date>
+            }
+        ]
+    },
+    """
+    # TODO investigate use of itertools as an alternative to looping
+    returnObj = {}
+    for item in items:
+        dateStr = item.pub_date.strftime('%y-%m-%d')
+        # get the date-keyed obj, or create new
+        try:
+            dateObj = returnObj[dateStr]
+        except KeyError:
+            dateObj = {
+                'date': item.pub_date.replace(hour=0, minute=0, second=0, microsecond=0),
+                'sources': {}
+            }
+        # get source-keyed list
+        try:
+            source = dateObj['sources'][item.source]
+        except KeyError:
+            source = []
+        # append items and put it back
+        source.append(item)
+        dateObj['sources'][item.source] = source
+        returnObj[dateStr] = dateObj
+    # before we return the object, we need to handle the ordering
+    return_list = []
+    for key in returnObj.keys():
+        val = returnObj[key]
+        return_list.append({
+            'date': val['date'],
+            'sources': val['sources']
+        })
+    return_list.sort(key=lambda item: item['date'])
+    return_list.reverse()
+    return return_list

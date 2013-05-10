@@ -18,3 +18,21 @@ Sample Feeds
 * Vimeo Likes: http://vimeo.com/user5479400/likes/rss
 * Wordpress: http://gareth53.wordpress.com/feed/
 * YouTube: http://gdata.youtube.com/feeds/base/users/gareth53/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile
+
+To Dos
+------
+* GENERAL
+** 404 page
+** 500 page
+** Primary Navigation
+** articles app
+** handle legacy URLs
+** styling - twitter bootstrap?
+** RHC Modules/blocks?
+
+* LIFESTREAM
+** grouping of days
+** grouping of items
+** display dependent on source template?
+** RSS feed
+** use of image/icons
