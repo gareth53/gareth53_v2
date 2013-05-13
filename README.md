@@ -24,15 +24,31 @@ To Dos
 * GENERAL
 ** 404 page
 ** 500 page
-** Primary Navigation
+** -Primary Navigation-
 ** articles app
 ** handle legacy URLs
 ** styling - twitter bootstrap?
 ** RHC Modules/blocks?
 
 * LIFESTREAM
-** grouping of days
-** grouping of items
+** -grouping of days-
+** -grouping of items-
 ** display dependent on source template?
 ** RSS feed
 ** use of image/icons
+
+
+* section blurbs for homepage
+
+e.g.
+
+7 scrobbles via Last.FM
+3 commits to GitHub
+2 blogs on Wordpress
+15 photos uploaded to flickr
+
+
+
+
+
+

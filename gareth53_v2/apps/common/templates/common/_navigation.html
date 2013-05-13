@@ -1,7 +1,11 @@
 <nav>
     <ul>
 {% for nav in nav_links %}
-        <li><a href="{{ nav.link }}">{{ nav.text }}</a></li>
+        <li{% ifequal curr_url nav.link %} class="up"{% endifequal %}>
+            {% ifequal curr_url nav.link %}<em>{{ nav.text }}</em>{% else %}
+            <a href="{{ nav.link }}">{{ nav.text }}</a>
+            {% endifequal %}
+            </li>
 {% endfor %}
     </ul>
 </nav>
