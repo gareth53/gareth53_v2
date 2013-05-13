@@ -13,14 +13,34 @@
         </ul>
     </div>
 
-    {% if items %}
-        {% for item in items %}
-            <article>
-                <h2>{% if item.slug %}<a href="{{ item.slug }}">{% endif %}{{ item.title }}{% if item.slug %}</a>{% endif %}</h2>
-                <p class="date">({{ item.pub_date }})</p>
-                <p>{{ item.description|safe }}</p>
-            </article>
+    {% if grouped_items %}
+        <ul>
+        {% for day in grouped_items %}
+            <li>
+            <section>
+                <p>{{ day.date|date:"D d M Y" }}</p>
+                <ul>
+                {% for source in day.sources %}
+                    <li><a href="{{ source.source.get_absolute_url }}">{{ source.source.name }}</a>
+                        <ul>
+                            {% for item in source.items %}
+                            <li>
+                                <h3>
+                                    {{ item.pub_date|date:"g:iA"|lower }} - 
+                                    {% if item.slug %}<a href="{{ item.slug }}">{% endif %}
+                                        {{ item.title }}
+                                    {% if item.slug %}</a>{% endif %}
+                                </h3>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+                </ul>
+            </section>
+            </li>
         {% endfor %}
+        </ul>
 
         <div class="pagination">
             <span class="step-links">
@@ -45,7 +65,6 @@
 {% else %}
     <p>No feeds to display.</p>
 {% endif %}
-
 
 
 {% endblock content  %}

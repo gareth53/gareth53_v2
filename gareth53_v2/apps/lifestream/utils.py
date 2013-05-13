@@ -108,20 +108,23 @@ def group_items(items):
             }
         # get source-keyed list
         try:
-            source = dateObj['sources'][item.source]
+            source = dateObj['sources'][item.feed]
         except KeyError:
             source = []
         # append items and put it back
         source.append(item)
-        dateObj['sources'][item.source] = source
+        dateObj['sources'][item.feed] = source
         returnObj[dateStr] = dateObj
     # before we return the object, we need to handle the ordering
     return_list = []
     for key in returnObj.keys():
         val = returnObj[key]
+        source_tree = []
+        for source in val['sources'].keys():
+            source_tree.append({ 'source': source, 'items': val['sources'][source] })
         return_list.append({
             'date': val['date'],
-            'sources': val['sources']
+            'sources': source_tree
         })
     return_list.sort(key=lambda item: item['date'])
     return_list.reverse()

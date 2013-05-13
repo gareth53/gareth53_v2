@@ -22,7 +22,10 @@ def item_list(request):
     if len(sources_subset) < len(sources):
         subset = True
     paginator = Paginator(Item.objects.all(), 100)
-    page_no = request.GET['page'] or 1
+    try:
+        page_no = request.GET['page'] or 1
+    except KeyError:
+        page_no = 1
     try:
         curr_page = paginator.page(page_no)
     except EmptyPage, PageNotAnInteger:
@@ -36,6 +39,7 @@ def item_list(request):
         'sources': sources_subset,
         'subset': subset,
         'items': curr_page.object_list,
+        'grouped_items': items,
         'curr_page': curr_page,
         'paginator': paginator
     }
