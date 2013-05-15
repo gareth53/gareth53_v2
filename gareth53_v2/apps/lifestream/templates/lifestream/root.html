@@ -1,4 +1,6 @@
 {% extends 'root.html' %}
+{% load lifestream %}
+
 
 {% block content %}
 
@@ -20,10 +22,10 @@
             <section>
                 <p>{{ day.date|date:"D d M Y" }}</p>
                 <ul>
-                {% for source in day.sources %}
-                    <li><a href="{{ source.source.get_absolute_url }}">{{ source.items|length }} update{{ source.items|pluralize }} via {{ source.source.name }}</a>
+                {% for source_group in day.sources %}
+                    <li>{% display_count source_group %}
                         <ul>
-                            {% for item in source.items %}
+                            {% for item in source_group.items %}
                             <li>
                                 <h3>
                                     {{ item.pub_date|date:"g:iA"|lower }} - 

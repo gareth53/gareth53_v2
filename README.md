@@ -36,19 +36,52 @@ To Dos
 ** display dependent on source template?
 ** RSS feed
 ** use of image/icons
+** section blurbs for homepage
 
 
-* section blurbs for homepage
 
 e.g.
 
+item_description = 
+this is the type of data that this feed stores: e.g. 'blogpost' or 'upload' or 'comment'
+
+item_description_multiple = 
+by default an 's' is added to the item description. Use this to over-ride that behaviour e.g. 'mixes', 'walruses', 'cherries'
+
+
+
+1 scrobble via Last.FM
 7 scrobbles via Last.FM
+
 3 commits to GitHub
+1 commit to GitHub
+
+1 blog on WordPress
 2 blogs on Wordpress
-15 photos uploaded to flickr
 
+1 photo uploaded to Flickr
+15 photos uploaded to Flickr
 
+3 listens at AudioBoo
+1 listen at AudioBoo
 
+1 bookmark using Delicious
+4 bookmarks using Delicious
+
+1 read logged at GoodReads
+2 reads logged at GoodReads
+
+1 mix uploaded to Mixcloud
+2 mixes uploaded to Mixcloud
+
+1 article read via Pocket
+4 articles read via Pocket
+
+1 upload to Vimeo
+2 uploads to Vimeo
+
+1 video viewed on Vimeo
+3 videos viewed on Vimeo
 
 
 

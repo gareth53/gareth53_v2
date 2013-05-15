@@ -22,6 +22,12 @@ class Source(models.Model):
     username = models.CharField(blank=True, max_length=255, help_text="For URLs that require basic HTTP authentication")
     password = models.CharField(blank=True, max_length=255, help_text="For URLs that require basic HTTP authentication")
 
+    item_summary_template = models.TextField(blank=True, help_text="""
+                A custom template for the 'header' display of items of this source on the root page.<br />
+                e.g. '3 scrobbles via Last.FM'<br/>
+                template variables available are: {{ source }} and {{ items }}
+            """)
+
     def __unicode__(self):
         return self.name
 
