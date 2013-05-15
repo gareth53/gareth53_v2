@@ -9,8 +9,6 @@ def render_navigation(context):
     """
     template tag that renders the main site navigation
     """
-    # TODO, if ew're veiwing the current link, don't link that one
-    # TODO if we're linking to a section, highlight it, but maintain the link
     curr_url = context['request'].path
     nav_links = settings.NAVIGATION
     for nav in nav_links:
