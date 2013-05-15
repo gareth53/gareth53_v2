@@ -12,7 +12,12 @@ def render_navigation(context):
     # TODO, if ew're veiwing the current link, don't link that one
     # TODO if we're linking to a section, highlight it, but maintain the link
     curr_url = context['request'].path
+    nav_links = settings.NAVIGATION
+    for nav in nav_links:
+        navlink = nav['link']
+        nav['curr_link'] = (navlink == curr_url)
+        nav['upstate'] = (len(navlink) and curr_url.startswith(navlink))
+        
     return {
-        "curr_url": curr_url, 
-        "nav_links": settings.NAVIGATION
+        "nav_links": nav_links
     }

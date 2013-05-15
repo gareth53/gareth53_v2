@@ -21,7 +21,7 @@
                 <p>{{ day.date|date:"D d M Y" }}</p>
                 <ul>
                 {% for source in day.sources %}
-                    <li><a href="{{ source.source.get_absolute_url }}">{{ source.source.name }}</a>
+                    <li><a href="{{ source.source.get_absolute_url }}">{{ source.items|length }} update{{ source.items|pluralize }} via {{ source.source.name }}</a>
                         <ul>
                             {% for item in source.items %}
                             <li>
