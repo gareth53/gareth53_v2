@@ -29,7 +29,7 @@
                             <li>
                                 <h3>
                                     {{ item.pub_date|date:"g:iA"|lower }} - 
-                                    {% if item.slug %}<a href="{{ item.slug }}">{% endif %}
+                                    {% if item.slug %}<a href="{{ item.get_absolute_url }}">{% endif %}
                                         {{ item.title }}
                                     {% if item.slug %}</a>{% endif %}
                                 </h3>
