@@ -34,7 +34,7 @@ def create_items(source, contents):
 
         new_item, created = Item.objects.get_or_create(feed=source, url=item['link'])
         if created:
-            new_item.slug = "%s-%s" % (new_item.pk, slugify(item['title']))
+            new_item.slug = slugify("%s-%s" % (new_item.pk, item['title']))
             new_item.guid = item['id']
             items_created += 1
         # update recent items, in case they've changed
