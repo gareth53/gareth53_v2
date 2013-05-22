@@ -15,9 +15,9 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'test.db',                      # Or path to database file if using sqlite3.
-        'USER': '',
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'gareth53v2',                      # Or path to database file if using sqlite3.
+        'USER': 'root',
         'PASSWORD': '',
         'HOST': '',
         'PORT': '',
@@ -119,7 +119,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'gareth53_v2.apps.lifestream',
-    'gareth53_v2.apps.common'
+    'gareth53_v2.apps.common',
+    'south'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
