@@ -6,7 +6,7 @@
 	<title>{% block title %}Gareth Senior{% endblock %}</title>
 	<meta name="author" content="Gareth Senior">
 	<meta name="description" content="{% block meta_description %}The site of Gareth Senior. Don't expect too much and you won't be disappointed{% endblock %}">
-	<meta name="keywords" content="{% block meta_keywords %}gareth senior huddersfield holmfirth developer javascript yorkshire capital radio{% endblock %}">
+	<meta name="keywords" content="{% block meta_keywords %}gareth senior huddersfield holmfirth netherthong developer javascript yorkshire capital radio{% endblock %}">
 {% block js_includes %}
 
 {% endblock %}
@@ -21,8 +21,12 @@
 <body>
 <div id="page">
     <header>
-        <h1>Gareth Senior</h1>
-        <p>Developer, Runner, Magician, Northerner, Writer, Wronger</p>
+        {% ifequal request.path '/' %}
+        <h1 id="site_title">Gareth Senior</h1>
+        {% else %}
+        <p id="site_title">Gareth Senior</p>
+        {% endifequal %}
+        <p>Seeking distractions from boredom. Hoping to be intrigued.</p>
     </header>
 
 {% render_navigation %}
