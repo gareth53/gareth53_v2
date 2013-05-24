@@ -15,7 +15,6 @@ def create_items(source, contents):
     """
     
     # TODO - think about items that we've already harvested but may have been deleted...?
-    
     items_created = 0
     for counter, itemdict in enumerate(contents['entries']):
         # make a temp dict, with blank values for defaults
@@ -34,7 +33,7 @@ def create_items(source, contents):
 
         new_item, created = Item.objects.get_or_create(feed=source, url=item['link'])
         if created:
-            new_item.slug = slugify("%s-%s" % (new_item.pk, item['title']))
+            new_item.slug = slugify("%s-%s" % (new_item.pk, item['title']))[0:50]
             new_item.guid = item['id']
             items_created += 1
         # update recent items, in case they've changed
@@ -45,6 +44,7 @@ def create_items(source, contents):
         new_item.save()
         # don't re-parse the entire feed if we've had no updates
         if counter - items_created > 3:
+            # TODO - a flag a variable number of matches
             logger.info("Feed stale, curtailing parse: %s" % source.url)
             break
 
@@ -129,3 +129,34 @@ def group_items(items):
     return_list.sort(key=lambda item: item['date'])
     return_list.reverse()
     return return_list
+
+
+def update_grouping(items):
+    """
+    function that takes an iterable collection of Items in date order
+    and returns a string relating to the occurrence of itesm
+    either: "daily", "weekly", "monthly", "yearly" (the default)
+    """
+    # TODO - write a test
+    dist = {
+        'daily':0,
+        'weekly':0,
+        'monthly':0,
+        'yearly':0,
+    }
+    item = list(items)
+    for x in range(0, len(item) - 1):
+        diff = ""
+        if item[x+1].pub_date.day == item[x].pub_date.day:
+            dist["daily"] += 1
+        elif (item[x+1].pub_date - item[x].pub_date).days < 7:
+            dist["weekly"] += 1
+        elif item[x+1].pub_date.month == item[x].pub_date.month:
+            dist["monthly"] += 1
+        elif item[x+1].pub_date.year == item[x].pub_date.year:
+            dist["yearly"] += 1
+    # now create a list of the keys ordered by value
+    dist_list = [{ 'name': key, 'score':dist[key] } for key in dist.keys()]
+    # return the most common occurrence
+    data_sorted = sorted(dist_list, key=lambda item: item['score'])
+    return data_sorted[-1]['name']

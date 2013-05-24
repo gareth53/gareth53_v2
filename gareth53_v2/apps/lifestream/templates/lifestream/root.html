@@ -13,6 +13,9 @@
             <li><a href="{{ source.get_absolute_url }}">{{ source.name }}</a></li>
             {% endfor %}
         </ul>
+        {% if subset %}
+        <p><a href="sources/">See all</a></p>
+        {% endif %}
     </div>
 
     {% if grouped_items %}

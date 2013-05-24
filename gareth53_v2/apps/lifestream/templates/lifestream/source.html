@@ -20,9 +20,25 @@
 
     {% if items %}
         <p>Last check: {{ source.last_check }}</p>
+    {% ifequal grouping 'daily' %}
+        <ul>
+            {% for item in items %}
+                {% ifchanged item.pub_date|date:"y-d-m" %}
+                    {% if not forloop.first %}</ul></li>{% endif %}
+                    <li>{{ item.pub_date|date:"" }}
+                        <ul>
+                {% endifchanged %}
+                            <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a> ({{ item.pub_date|date:"h:i A"|lower }})</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <ul>
         {% for item in items %}
-            <article><a href="{{ item.slug }}">{{ item.title }}</a> ({{ item.pub_date }})</a></article>
+            <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a> ({{ item.pub_date|date:"y-d-m h:i A"|lower }})</a></li>
         {% endfor %}
+    </ul>
+    {% endifequal %}
+
     {% else %}
         <p>No items retrieved from this source.</p>
     {% endif %}
