@@ -15,8 +15,8 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'gareth53v2',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gareth53v2',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '',
@@ -33,8 +33,8 @@ LANGUAGE_CODE = 'en-gb'
 
 SITE_ID = 1
 
-USE_I18N = True
-USE_L10N = True
+USE_I18N = False
+USE_L10N = False
 USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
@@ -120,6 +120,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'gareth53_v2.apps.lifestream',
     'gareth53_v2.apps.common',
+    'gareth53_v2.apps.articles',
     'south'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',

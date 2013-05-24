@@ -1,0 +1,26 @@
+{% extends "root.html" %}
+
+{% block title %}{{ this_article.title }}{% endblock %}
+
+{% block meta_description %}Gareth Senior: {{ this_article.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ this_article.title }}</h1>
+
+{{ this_article.body_html|safe }}
+
+
+{% if this_article.pod_promos %}
+<div id="col2" class="col">
+
+<h3>
+	{% if this_article.pod_promos.headline_link or this_article.pod_promos.article_link %}
+		<a href="{% if this_article.pod_promos.headline_link %}{{ this_article.pod_promos.headline_link }}{% else %}{{ this_article.pod_promos.article_link.get_absolute_url }}{% endif %}">{{ this_article.pod_promos.headline }}</a>
+	{% else %}
+		{{ this_article.pod_promos.headline }}
+	{% endif %}</h3>
+    {{ this_article.pod_promos.body_html|safe }}
+</div>
+{% endif %}
+
+{% endblock %}
