@@ -28,14 +28,16 @@ To Dos
 ** -Proper Database and South migrations-
 ** articles app: /about-me.html, /work.html, /contact-me.html,
 ** handle legacy URLs (SEO tools): /podcast/, /podcast/artists.html, /podcast/episode1-7.html
-** styling - twitter bootstrap
+** styling - twitter bootstrap IN PROGRESS
 ** RHC Modules/blocks?
+** Google Analytics
 
 * LIFESTREAM
 ** -grouping of days-
 ** -grouping of items-
 ** RSS feed(s)?
 ** use of image/icons IN PROGRESS
+** -validation of templates in admin-
 ** -display dependent on source template?-
 ** -section blurbs for homepage (as below)-
 ** -password protected feeds: http://pythonhosted.org/feedparser/http-authentication.html-
