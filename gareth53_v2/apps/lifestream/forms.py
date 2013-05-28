@@ -9,6 +9,6 @@ class SourceAdminForm(forms.ModelForm):
         # validate template syntax
         try:
             templ = Template(self.cleaned_data["item_summary_template"])
-        except TemplateSyntaxError:
-            raise forms.ValidationError("This template fragment has a syntax error")
+        except TemplateSyntaxError, e:
+            raise forms.ValidationError("Template syntax error: %s" % e.message)
         return self.cleaned_data["item_summary_template"]
