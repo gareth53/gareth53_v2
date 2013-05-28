@@ -1,7 +1,9 @@
 from django.contrib import admin
 from .models import Source, Item
+from .forms import SourceAdminForm
 
 class SourceAdmin(admin.ModelAdmin):
+    form = SourceAdminForm
     list_display = ['slug', 'name', 'last_check']
     list_filter = ('active', )
     list_editable = ('name', )
