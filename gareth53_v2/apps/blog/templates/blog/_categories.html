@@ -1,0 +1,6 @@
+	<h2>Blog Categories</h2>
+	<ul class="categories">
+		{% for category in categories %}
+		<li><a href="/blog/categories/{{category.slug}}.html">{{category.title}}</a> ({{ category.use_count }})</li>
+		{% endfor %}
+	</ul>

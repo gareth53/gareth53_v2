@@ -1,0 +1,22 @@
+{% extends "root.html" %}
+
+{% block title %}Blog{% endblock %}
+
+{% block rssFeeds %}
+<link rel="alternate" type="application/atom+xml" title="Latest Blog Posts" href="/blog/rss/posts.xml">
+{% endblock %}
+
+
+{% block metaDescription %}This is the weblog of Gareth Senior, web developer, pastry chef, dancer, writer and darling of the critics
+{% endblock %}
+
+
+{% block cssIncludes %}
+{{ block.super }}
+<link media="screen" type="text/css" rel="stylesheet" href="/assets/css/blog.css">
+{% endblock %}
+
+{% block bodyId %}blog{% endblock %}
+
+
+

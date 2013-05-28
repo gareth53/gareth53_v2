@@ -1,0 +1,18 @@
+{% ifnotequal posts.num_pages 1 %}
+<p class="page_count">Page {{ posts.page_num }} of {{ posts.num_pages }}</p>
+<ul class="pagination">
+{% if posts.has_previous %}<li><a href="{{ posts.previous_page_number }}.html" class="previous">Previous</a></li>{% endif %}
+{% for num in posts.page_range %}
+    {% if not num %}<li>...</li>
+    {% else %}
+        {% ifequal num posts.page_num %}
+            <li class="current">{{ num }}</li>
+        {% else %}
+            <li><a href="{{ num }}.html">{{ num }}</a></li>
+        {% endifequal %}
+    {% endif %}  
+{% endfor %}
+{% if posts.has_next %}<li><a href="{{ posts.next_page_number }}.html" class="next">Next</a></li>
+{% endif %}
+</ul>
+{% endifnotequal %}

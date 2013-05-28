@@ -52,7 +52,7 @@ class Entry(models.Model):
         super(Entry, self).save()
 
     def get_absolute_url(self):
-        return reverse('gareth53.apps.blog.views.blogPost', None, \
+        return reverse('gareth53_v2.apps.blog.views.blogPost', None, \
         [ str(self.pub_date.strftime("%Y")),
           str(self.pub_date.strftime("%m")),
           str(self.slug)])

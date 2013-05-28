@@ -8,8 +8,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'gareth53_v2.views.home', name='home'),
     url(r'^', include('gareth53_v2.apps.lifestream.urls')),
     url(r'^', include('gareth53_v2.apps.articles.urls')),
-    # TODO, support legect blog URLs
-
+    url(r'^blog/', include('gareth53_v2.apps.blog.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

@@ -1,0 +1,41 @@
+{% extends "blog/base.html" %}
+{% load blog_categories %}
+
+{% block title %}{{this_post.title}} | Blog{% endblock %}
+
+{% block metaDescription %}
+
+Blog post: {{this.post.title}} posted by Gareth Senior ({{this_post.title}})
+
+{% endblock %}
+
+{% block bodyId %}blog-post{% endblock %}
+
+{% block bodyClass %}{{block.super}} article col2{% endblock %}
+
+{% block content %}
+<div class="col" id="col1">
+<h1>{{ this_post.title }}</h1>
+<p class="date">{{this_post.pub_date|date:"g:ia, D j"}} <a href="/blog/{{this_post.pub_date|date:"Y"}}/{{this_post.pub_date|date:"m"}}/">{{this_post.pub_date|date:"M"}}</a> <a href="/blog/{{this_post.pub_date|date:"Y"}}/">{{this_post.pub_date|date:"Y"}}</a></p>
+
+
+{{ this_post.body_html|safe }}
+
+
+</div>
+
+
+<div class="col" id="col2">
+
+	<div class="col-row">
+		<h2>Latest Posts</h2>
+		{% include "blog/_post_fragment_list.html" %}
+	</div>
+
+	<div class="col-row">
+		{% blog_categories %}
+	</div>
+
+</div>
+
+{% endblock %}

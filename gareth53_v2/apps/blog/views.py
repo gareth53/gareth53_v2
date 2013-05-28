@@ -1,12 +1,12 @@
 import datetime
 
 from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.template import Context, loader
 
 from .models import Entry, BlogCategory
-from gareth53.shortcuts import get_queryset_or_404
-from gareth53.paginator import DiggPaginator
+from gareth53_v2.apps.common.utils import get_queryset_or_404
+from gareth53_v2.apps.common.utils.paginator import DiggPaginator
 
 def blogHub(request, page_num=0):
     if int(page_num) == 1:
@@ -20,7 +20,7 @@ def blogHub(request, page_num=0):
         posts_to_display = paginator.page(page_num)
     except:
         raise Http404
-    return render_to_response(
+    return render(request,
         'blog/home.html',
         {   'posts': posts_to_display,
             'pageTitle': "All Blog Posts"
@@ -43,10 +43,10 @@ def blogCategories(request, slug, page_num=0):
     posts_to_display = paginator.page(page_num)
     if not posts_to_display:
         raise Http404
-    return render_to_response('blog/category.html', {
+    return render(request, 'blog/category.html', {
                                     'posts': posts_to_display,
                                     'category': category,
-                                    'postCount': category_posts.count()) })
+                                    'postCount': category_posts.count() })
 
 
 def blogPost(request, year, month, slug):
@@ -57,7 +57,7 @@ def blogPost(request, year, month, slug):
     latest_posts = Entry.objects.all().filter(status=1).order_by('-pub_date').exclude(id=this_post_id)[:4]
     paginator = DiggPaginator(latest_posts, 10, body=5, padding=2)
     posts_to_display = paginator.page(1)
-    return render_to_response('blog/post.html', {'this_post': this_post, 'posts': posts_to_display})
+    return render(request, 'blog/post.html', {'this_post': this_post, 'posts': posts_to_display})
 
 
 def blogYear(request, year, page_num=0):
@@ -73,7 +73,7 @@ def blogYear(request, year, page_num=0):
     except:
         raise Http404
     pageTitle = 'Blogs from %s' % year 
-    return render_to_response('blog/home.html', {'posts': posts_to_display, 'pageTitle': pageTitle })
+    return render(request, 'blog/home.html', {'posts': posts_to_display, 'pageTitle': pageTitle })
 
 
 def blogMonth(request, year, month, page_num=0):
@@ -103,4 +103,4 @@ def blogMonth(request, year, month, page_num=0):
         "November", 
         "December" ]
     pageTitle = 'Blogs from %s %s' % (months[int(month)], year)
-    return render_to_response('blog/home.html', {'posts': posts_to_display, 'pageTitle': pageTitle, 'firstPost': firstPost })
+    return render(request, 'blog/home.html', {'posts': posts_to_display, 'pageTitle': pageTitle, 'firstPost': firstPost })

@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+{% load blog_categories %}
+
+{% block title %}Blog Category '{{category.title}}'{% endblock %}
+
+{% block metaDescription %}Gareth Senior's blog posts with the category '{{category.title}}'{% endblock %}
+
+{% block bodyClass %}{{block.super}} col2{% endblock %}
+
+{% block content %}
+
+<div class="col" id="col1">
+<h1>
+    {{ postCount }} blog post{{ postCount|pluralize }} with the category '{{category.title}}'
+</h1>
+
+
+{% include "blog/_post_fragment_list.html" %}
+
+</div>
+
+<div class="col" id="col2">
+	{% blog_categories %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "blog/base.html" %}
+
+{% block title %}Blog Archive{% endblock %}
+
+{% block metaDescription %}Gareth Senior's blog archive, all posts{% endblock %}
+
+{% block content %}
+
+<div class="col-wdth-2">
+<h1>{{pageTitle}}</h1>
+{% for post in posts %}
+	<h2>{{post.pub_date.year}}</h2>	
+	<ul class="year">
+		<li><h3><a href="/blog/{{ post.slug }}">{{ post.title }}</a></h3>
+		<p class="date">{{ post.pub_date|date:"f, j M" }}</p></li>
+	</ul>
+{% endfor %}
+</div>
+
+
+{% endblock %}

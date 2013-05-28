@@ -26,8 +26,13 @@ To Dos
 ** -500 page-
 ** -Primary Navigation-
 ** -Proper Database and South migrations-
-** articles app: /about-me.html, /work.html, /contact-me.html,
-** handle legacy URLs (SEO tools): /podcast/, /podcast/artists.html, /podcast/episode1-7.html
+** -articles app: /about-me.html, /work.html, /contact-me.html-,
+** blog app for legacy URLs,
+*** -blog root-
+*** -blog categories-
+*** blog RSS feeds
+*** import & test legacy blog content
+** handle legacy podcast URLs (SEO tools): /podcast/, /podcast/artists.html, /podcast/episode1-7.html
 ** styling - twitter bootstrap IN PROGRESS
 ** RHC Modules/blocks?
 ** Google Analytics

@@ -11,7 +11,7 @@
 # each month has a DB row with relatinships....
 
 from django import template
-from gareth53.apps.blog.models import Entry
+from gareth53_v2.apps.blog.models import Entry
 
 register = template.Library()
 
