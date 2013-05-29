@@ -14,12 +14,11 @@ class AllPosts(Feed):
         return Entry.objects.filter(status=1).order_by('-pub_date')[:10]
 
 class CategorisedPosts(Feed):
-    def get_object(self, bits):
-        # In case of "/rss/categories/blah/foo/bar/baz/", or other such clutter,
-        # check that bits has only one member.
-        if len(bits) != 1:
-            raise ObjectDoesNotExist
-        return BlogCategory.objects.get(slug__exact=bits[0])
+    def get_object(self, request, cat_slug):
+        try:
+            return BlogCategory.objects.get(slug__exact=cat_slug)
+        except:
+            raise FeedDoesNotExist        
 
     def title(self, obj):
         return "%s - Latest Blog Posts with category '%s'" % (Site.objects.get(id=settings.SITE_ID).name, obj.title)
@@ -30,7 +29,7 @@ class CategorisedPosts(Feed):
         return u'http://%s/blog/categories/%s' % (Site.objects.get(id=settings.SITE_ID).domain, obj.slug)
 
     def description(self, obj):
-        return "Ramblings and random thoughts about '%s' from the brainium of Gareth Senior" % "stuff" # obj.BlogCategory
+        return "Ramblings and random thoughts about '%s' from the brainium of Gareth Senior" % obj.title
 
     def items(self, obj):
         return Entry.objects.filter(category__id__exact=obj.id, status=1).order_by('-pub_date')[:10]

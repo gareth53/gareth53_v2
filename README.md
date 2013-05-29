@@ -30,9 +30,9 @@ To Dos
 ** blog app for legacy URLs,
 *** -blog root-
 *** -blog categories-
-*** blog RSS feeds
+*** -blog RSS feeds-
 *** import & test legacy blog content
-** handle legacy podcast URLs (SEO tools): /podcast/, /podcast/artists.html, /podcast/episode1-7.html
+** handle legacy podcast URLs (the django redirects app): /podcast/, /podcast/artists.html, /podcast/episode1-7.html
 ** styling - twitter bootstrap IN PROGRESS
 ** RHC Modules/blocks?
 ** Google Analytics
