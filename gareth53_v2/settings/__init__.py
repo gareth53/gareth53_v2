@@ -27,6 +27,7 @@ DATABASES = {
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
+APPEND_SLASH = True
 
 TIME_ZONE = 'Europe/London'
 LANGUAGE_CODE = 'en-gb'
@@ -97,6 +98,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -118,6 +120,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.redirects',
     'gareth53_v2.apps.lifestream',
     'gareth53_v2.apps.common',
     'gareth53_v2.apps.articles',
