@@ -1,3 +1,5 @@
+import datetime 
+
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
 from django.shortcuts import render
@@ -44,7 +46,8 @@ def item_list(request):
         'items': curr_page.object_list,
         'grouped_items': items,
         'curr_page': curr_page,
-        'paginator': paginator
+        'paginator': paginator,
+        'now': datetime.datetime.now()
     }
     return render(request, 'lifestream/root.html', context)
 

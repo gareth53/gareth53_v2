@@ -1,41 +1,78 @@
 {% extends 'root.html' %}
-{% load lifestream %}
+{% load lifestream superdate %}
 
 
 {% block content %}
 
 
+<div class="row">
+
+{% ifequal curr_page.number 1 %}
+
+    <div class="span4">
+        <h2>About this site</h2>
+        <p>
+            This site is an amalgamation of my use of other services and websites. 
+            It's both a public back-up of my data and the 
+            opportunity to see everything in a single place. 
+            I like to think of it as a stream of online consciousness. 
+        </p>
+        <p>
+            Why did I do this? That's a good question. 
+            Hopefully there's <a href="">an answer here</a>.
+        </p>
 {% if sources %}
-    <div class="sources">
-        <h2>Sources</h2>
+        <p>
+            The most active services I'm using (and harvesting data from) is below.
+        </p>
         <ul>
             {% for source in sources %}
             <li><a href="{{ source.get_absolute_url }}">{{ source.name }}</a></li>
             {% endfor %}
         </ul>
         {% if subset %}
-        <p><a href="sources/">See all</a></p>
+        <p><a href="sources/">See all services</a></p>
         {% endif %}
+{% endif %}
+
+        <h2>About me</h2>
+        <p>
+            I live in London but I'm originally from West Yorkshire.
+        </p>
+        <p>    
+            I currently work for Global Radio, home of CapitalFM, Heart FM and Classic FM. 
+        </p>
+        <p>
+            I was once one of the kids behind Big Daddy, employed to chant his catchphrase "easy! easy! easy!"
+        </p>
     </div>
 
+{% endifequal %}
+
+<div class="{% ifequal curr_page.number 1 %}span8{% else %}span12{% endifequal %}">
+    <h2>Updates</h2>
+{% if sources %}
     {% if grouped_items %}
         <ul>
         {% for day in grouped_items %}
             <li>
             <section>
-                <p>{{ day.date|date:"D d M Y" }}</p>
+                <h3>
+                    {% ifequal now|date:"Y" day.date|date:"Y" %}
+                        {{ day.date|superday:"D nS M" }}
+                    {% else %}
+                        {{ day.date|superday:"D nS M Y" }}
+                    {% endifequal %}
+                </h3>
                 <ul>
                 {% for source_group in day.sources %}
-                    <li>{% display_count source_group %}
+                    <li><h4>{% display_count source_group %}</h4>
                         <ul>
                             {% for item in source_group.items %}
                             <li>
-                                <h3>
-                                    {{ item.pub_date|date:"g:iA"|lower }} - 
-                                    {% if item.slug %}<a href="{{ item.get_absolute_url }}">{% endif %}
-                                        {{ item.title }}
-                                    {% if item.slug %}</a>{% endif %}
-                                </h3>
+                                {% if item.slug %}<a href="{{ item.get_absolute_url }}">{% endif %}
+                                    {{ item.title }}
+                                {% if item.slug %}</a>{% endif %} {{ item.pub_date|date:"g:iA"|lower }}
                             </li>
                             {% endfor %}
                         </ul>
@@ -70,6 +107,7 @@
 {% else %}
     <p>No feeds to display.</p>
 {% endif %}
-
+    </div>
+</div>
 
 {% endblock content  %}
