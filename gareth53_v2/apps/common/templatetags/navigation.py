@@ -10,12 +10,13 @@ def render_navigation(context):
     template tag that renders the main site navigation
     """
     curr_url = context['request'].path
+    if not curr_url:
+        curr_url = r"/"
     nav_links = settings.NAVIGATION
     for nav in nav_links:
         navlink = nav['link']
         nav['curr_link'] = (navlink == curr_url)
-        nav['upstate'] = (len(navlink) and curr_url.startswith(navlink))
-        
+        nav['upstate'] = nav['curr_link'] or (len(navlink) > 1 and curr_url.startswith(navlink))
     return {
         "nav_links": nav_links
     }

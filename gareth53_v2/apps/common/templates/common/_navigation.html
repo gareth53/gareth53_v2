@@ -1,11 +1,15 @@
 <nav>
-    <ul>
-{% for nav in nav_links %}
-        <li{% if nav.upstate %} class="up"{% endif %}>
-            {% if nav.curr_link %}<em>{{ nav.text }}</em>{% else %}
-            <a href="{{ nav.link }}">{{ nav.text }}</a>
-            {% endif %}
-            </li>
-{% endfor %}
-    </ul>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <ul class="nav">
+    {% for nav in nav_links %}
+            <li{% if nav.upstate %} class="active"{% endif %}>
+                {% if nav.curr_link %}<a href="{{ nav.link }}">{{ nav.text }}</a>{% else %}
+                <a href="{{ nav.link }}">{{ nav.text }}</a>
+                {% endif %}
+                </li>
+    {% endfor %}
+        </ul>
+      </div>
+    </div>
 </nav>
