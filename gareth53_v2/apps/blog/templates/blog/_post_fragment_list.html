@@ -4,7 +4,7 @@
 <ul class="post-fragments">
 {% for post in posts.object_list %}
     <li><h3><a href="/blog/{{ post.pub_date|date:"Y" }}/{{ post.pub_date|date:"m" }}/{{ post.slug }}.html">{{ post.title }}</a></h3>
-		<p class="date">{{ post.pub_date|date:"g:ia, j M" }}</p>
+		<p class="date">{{ post.pub_date|date:"g:ia, j M Y" }}</p>
 		{{ post.body_html|striptags|truncatewords:20 }}
 	</li>
 {% endfor %}

@@ -5,7 +5,7 @@
 
 {% block metaDescription %}
 
-Blog post: {{this.post.title}} posted by Gareth Senior ({{this_post.title}})
+Blog post: {{ this.post.title }} posted by Gareth Senior ({{this_post.title}})
 
 {% endblock %}
 
@@ -14,26 +14,28 @@ Blog post: {{this.post.title}} posted by Gareth Senior ({{this_post.title}})
 {% block bodyClass %}{{block.super}} article col2{% endblock %}
 
 {% block content %}
-<div class="col" id="col1">
-<h1>{{ this_post.title }}</h1>
-<p class="date">{{this_post.pub_date|date:"g:ia, D j"}} <a href="/blog/{{this_post.pub_date|date:"Y"}}/{{this_post.pub_date|date:"m"}}/">{{this_post.pub_date|date:"M"}}</a> <a href="/blog/{{this_post.pub_date|date:"Y"}}/">{{this_post.pub_date|date:"Y"}}</a></p>
+<div class="row">
 
 
-{{ this_post.body_html|safe }}
+	<div class="span8">
+
+        <h1>{{ this_post.title }}</h1>
+        <p class="date">{{this_post.pub_date|date:"g:ia, D j"}} <a href="/blog/{{this_post.pub_date|date:"Y"}}/{{this_post.pub_date|date:"m"}}/">{{this_post.pub_date|date:"M"}}</a> <a href="/blog/{{this_post.pub_date|date:"Y"}}/">{{this_post.pub_date|date:"Y"}}</a></p>
 
 
-</div>
+        {{ this_post.body_html|safe }}
 
 
-<div class="col" id="col2">
+    </div>
 
-	<div class="col-row">
+
+	<div class="span4">
+
 		<h2>Latest Posts</h2>
 		{% include "blog/_post_fragment_list.html" %}
-	</div>
 
-	<div class="col-row">
 		{% blog_categories %}
+
 	</div>
 
 </div>

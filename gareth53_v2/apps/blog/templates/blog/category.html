@@ -8,19 +8,22 @@
 {% block bodyClass %}{{block.super}} col2{% endblock %}
 
 {% block content %}
+<div class="row">
 
-<div class="col" id="col1">
-<h1>
-    {{ postCount }} blog post{{ postCount|pluralize }} with the category '{{category.title}}'
-</h1>
+    <div class="span8">
+    <h1>
+        {{ postCount }} blog post{{ postCount|pluralize }} with the category '{{category.title}}'
+    </h1>
 
 
-{% include "blog/_post_fragment_list.html" %}
+    {% include "blog/_post_fragment_list.html" %}
 
-</div>
+    </div>
 
-<div class="col" id="col2">
-	{% blog_categories %}
+    <div class="span4">
+    	{% blog_categories %}
+    </div>
+
 </div>
 
 {% endblock %}

@@ -3,26 +3,23 @@
 
 {% block title %}{{ pageTitle }}{% endblock %}
 
-
 {% block metaDescription %}Gareth Senior's blog: Recent posts: {% for post in latest_posts %}'{{post.title}}'{% if not last %}, {% endif %}{%endfor%}{% endblock %}
-
-{% block bodyClass %}{{block.super}} col2{% endblock %}
-
-
 
 {% block content %}
 
+<div class="row">
 
+    <div class="span8">
+    	<h1>
+    		{{pageTitle}}{{firstPost.pub_date|date:"F \, Y"}} 		
+    	</h1>
+        {% include "blog/_post_fragment_list.html" %}
+    </div>
 
-<div class="col" id="col1">
-	<h1>
-		{{pageTitle}}{{firstPost.pub_date|date:"F \, Y"}} 		
-	</h1>
-{% include "blog/_post_fragment_list.html" %}
-</div>
+    <div class="span4">
+    	{% blog_categories %}
+    </div>
 
-<div class="col" id="col2">
-	{% blog_categories %}
 </div>
 
 {% endblock %}

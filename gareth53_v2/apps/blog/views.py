@@ -67,6 +67,8 @@ def blogYear(request, year, page_num=0):
     if page_num == 0:
         page_num = 1
     years_posts = Entry.objects.filter(pub_date__year=year, status=1).order_by('-pub_date')
+    if not years_posts:
+        raise Http404
     paginator = DiggPaginator(years_posts, 10, body=5, padding=2)
     try:
         posts_to_display = paginator.page(page_num)
@@ -83,6 +85,8 @@ def blogMonth(request, year, month, page_num=0):
         page_num = 1
     month = month.lstrip('0')
     month_posts = Entry.objects.filter(pub_date__year=year, pub_date__month=month, status=1).order_by('-pub_date')
+    if not month_posts:
+        raise Http404
     paginator = DiggPaginator(month_posts, 10, body=5, padding=2)
     try:
         posts_to_display = paginator.page(page_num)
