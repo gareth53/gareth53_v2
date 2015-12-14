@@ -125,9 +125,17 @@ INSTALLED_APPS = (
     'gareth53_v2.apps.common',
     'gareth53_v2.apps.articles',
     'gareth53_v2.apps.blog',
+    'gareth53_v2.apps.mixcloud',
+    'rest_framework'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
