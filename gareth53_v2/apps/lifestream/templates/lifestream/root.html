@@ -59,9 +59,9 @@
             <section>
                 <h3>
                     {% ifequal now|date:"Y" day.date|date:"Y" %}
-                        {{ day.date|superday:"D nS M" }}
+                        {{ day.date|superday:"D jS M" }}
                     {% else %}
-                        {{ day.date|superday:"D nS M Y" }}
+                        {{ day.date|date:"D jS M Y" }}
                     {% endifequal %}
                 </h3>
                 <ul>
