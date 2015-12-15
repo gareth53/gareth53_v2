@@ -21,7 +21,7 @@ Sample Feeds
 
 
 * https://huffduffer.com/gareth53/rss
-* http://local.thisisglobal.com:8004/mixcloud/gareth53/listens/
+* /mixcloud/gareth53/listens/
 
 
 To Dos
