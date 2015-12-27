@@ -44,7 +44,7 @@ class Item(models.Model):
         ordering = ('-pub_date', )
     
     feed = models.ForeignKey(Source)
-    url = models.URLField()
+    url = models.URLField(max_length=500)
 
     title = models.CharField(blank=True, max_length=255)
     pub_date = models.DateTimeField(null=True)

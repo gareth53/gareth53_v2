@@ -14,6 +14,11 @@ def create_items(source, contents):
     and then creates items based on the dict
     """
     
+    def shorten(value, length):
+        if len(value) > length:
+            return value[0:length-3] + "..."
+        return value
+
     # TODO - think about items that we've already harvested but may have been deleted...?
     items_created = 0
     for counter, itemdict in enumerate(contents['entries']):
@@ -30,16 +35,15 @@ def create_items(source, contents):
 
         source.last_check = timezone.make_aware(datetime.datetime.now(), timezone.get_default_timezone())
         source.save()
-
         new_item, created = Item.objects.get_or_create(feed=source, url=item['link'])
         if created:
             new_item.slug = slugify("%s-%s" % (new_item.pk, item['title']))[0:50]
             new_item.guid = item['id']
             items_created += 1
         # update recent items, in case they've changed
-        new_item.title = item['title']
+        new_item.title = shorten(item['title'], 255)
         new_item.pub_date = pub_date
-        new_item.description = item['description']
+        new_item.description = shorten(item['description'], 255)
         # TODO, add tags, where available?
         new_item.save()
         # don't re-parse the entire feed if we've had no updates
