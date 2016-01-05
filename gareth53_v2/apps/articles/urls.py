@@ -1,6 +1,6 @@
-from django.conf.urls import patterns
+from django.conf.urls import url
 from .views import ArticlePage
 
-urlpatterns = patterns('',
-     (r'^(?P<slug>[\w\-]+).html$', ArticlePage),
-)
+urlpatterns = [
+     url(r'^(?P<slug>[\w\-]+).html$', ArticlePage),
+]

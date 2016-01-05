@@ -1,0 +1,86 @@
+<!docytpe html>
+<html>
+<head>
+	<style>
+	#netflixer label {
+		display: none;
+	}
+	#netflixer input {
+		float:left;
+		margin-bottom:1em;
+	}
+	#netflixer input[id^='id_title'],
+	#netflixer input[type='submit'] {
+		clear:left;
+	}
+	#netflixer input[id^='id_url'] {
+		width:200px;
+	}
+	</style>
+</head>
+<body>
+<h1>Adding Netflix Scrobbles</h1>
+{% comment %}
+<p>
+So, I want to be able to create a bookmarklet for different sites that will find 
+data on a webpage and pass it to this URL where I can post it.
+</p>
+<p>
+	My inspiration is the Delicious bookmarklet, which links to <a href="https://delicious.com/save?url=http%3A%2F%2Fwww.google.com%3A8004%2Fitems%2Fcreate%2F&title=Title%20Of%20The%20Document">here</a>.
+</p>
+<p>
+	Obviously this will be more complex, since it will be passing a list of LOTs of potential scrobbles rather than just a simple pair of URL/Title.
+</p>
+<p>
+	It will also have to pass in the SOURCE - or I could hard-code that... hmmm.
+</p>
+<p>
+	I imagine the URL will look like this a stringified JSON blob:
+</p>
+<code>
+{<br />
+	"items": [{<br />
+&nbsp;&nbsp;&nbsp;"title": "Forensic Files: Forensic Files: Collection: \"Dirty Little Seacret\"",<br />
+&nbsp;&nbsp;&nbsp;"pub_date": "2015-12-13T15:00",<br />
+&nbsp;&nbsp;&nbsp;"url": "http://www.netflix.com/title/70198116"<br />
+&nbsp;&nbsp;&nbsp;},<br />
+&nbsp;&nbsp;&nbsp;{<br />
+&nbsp;&nbsp;&nbsp;"title": "No Way Out",<br />
+&nbsp;&nbsp;&nbsp;"pub_date": "2015-12-13T15:00",<br />
+&nbsp;&nbsp;&nbsp;"url": "https://www.netflix.com/WiMovie/810117?trkid=200250783"<br />
+&nbsp;&nbsp;&nbsp;}]<br />
+}
+</code>
+{% endcomment %}
+
+<a href='./?data={"items": [{"url": "http%3A//www.netflix.com/title/70198116", "pub_date": "2015-12-13T15:00", "title": "Forensic Files: Forensic Files: Collection: Dirty Little Seacret"}, {"url": "https%3A//www.netflix.com/WiMovie/810117%3Ftrkid%3D200250783", "pub_date": "2015-12-13T15:00", "title": "No Way Out"}]}'>test</a>
+
+{% if createds %}
+<h2>Created</h2>
+<ul class="created">
+	{% for item in createds %}
+	<li>{{ item }}</li>
+	{% endfor %}
+</ul>
+{% endif %}
+{% if duplicates %}
+<h2>Duplicates</h2>
+<ul class="duplicates">
+	{% for item in duplicates %}
+	<li>{{ item }}</li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+<form method="POST" action="." id="netflixer">
+	{% csrf_token %}
+	<div class="formrows">
+		<div class="formrow">
+		{{ form }}
+		</div>
+	</div>
+	<input type="submit">
+</form>
+
+</body>
+</html>
