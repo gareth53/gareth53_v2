@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^', include('gareth53_v2.apps.articles.urls')),
     url(r'^blog/', include('gareth53_v2.apps.blog.urls')),
     url(r'^mixcloud/', include('gareth53_v2.apps.mixcloud.urls')),
+    url(r'^netflix/', include('gareth53_v2.apps.netflix.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

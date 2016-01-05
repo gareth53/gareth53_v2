@@ -1,4 +1,3 @@
-import json
 from datetime import datetime 
 
 from django.views.generic.list import ListView
@@ -7,7 +6,6 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Source, Item
-from .forms import NetflixForm
 from .utils import group_items, update_grouping
 
 def source_list(request):
@@ -15,37 +13,6 @@ def source_list(request):
         'sources': Source.objects.filter(active=True)
     }
     return render(request, 'lifestream/source_list.html', context)
-
-def item_form(request):
-    ctxt = {
-        'form': NetflixForm()
-    }
-    if request.POST:
-        createds = []
-        duplicates = []
-        data = request.POST
-        source = Source.objects.get(name='Netflix')
-        item_count = int(data.get('items', '1'))
-        for x in range(1, item_count+1):
-            pub_date = datetime.strptime(data['pub_date%d' % x], '%Y-%m-%dT%H:%M')
-            item, created = Item.objects.get_or_create(feed=source,
-                                                       title=data['title%d' % x],
-                                                       url=data['url%d' % x],
-                                                       pub_date=pub_date)
-            if created:
-                createds.append(item)
-            else:
-                duplicates.append(item)
-        ctxt.update({
-            'createds': createds,
-            'duplicates': duplicates
-            })
-    elif request.GET.get('data', ''):
-        items = json.loads(request.GET.get('data', '')).get('items', [])
-        ctxt.update({
-            'form': NetflixForm(extra=items)
-        })
-    return render(request, 'lifestream/items_create.html', ctxt)    
 
 def item_list(request):
     # TODO: if source is inactive return a 410

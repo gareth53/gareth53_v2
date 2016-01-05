@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'gareth53_v2.apps.articles',
     'gareth53_v2.apps.blog',
     'gareth53_v2.apps.mixcloud',
+    'gareth53_v2.apps.netflix',
     'rest_framework'
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
