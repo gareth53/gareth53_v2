@@ -59,11 +59,22 @@ var gs_netflix={
 		return date;
 	},
 	
+	dicts_to_querystr: function(data) {
+		var qstr = '?items=' + data.length;
+		var keys = ['title', 'pub_date', 'url'];
+		for (var d=0; d<data.length;d++) {
+			for (var key in keys) {
+				qstr += '&' + keys[key] + parseInt(d+1) + '=' + escape(data[d][keys[key]]);
+			}
+		}
+		return qstr;
+	},
+
 	init: function(){
 		var movies_html = document.getElementsByClassName('retableRow');
 		data = this.get_movies(movies_html);
 		var form_url = 'http://local.thisisglobal.com:8004/netflix/items/create/';
-		var queryStr = '?data={"items":'+ JSON.stringify(data) + "}";
+		var queryStr = this.dicts_to_querystr(data);
 		var popup = window.open(form_url + queryStr, undefined, 'width=500,height=750,scrollbars,statusbar');
 	}
 };
