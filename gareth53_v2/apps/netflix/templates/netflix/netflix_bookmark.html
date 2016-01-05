@@ -12,7 +12,7 @@ var gs_netflix={
 		var last_day = undefined;
 		var last_time = undefined;
 		for (var i=0; i < movies.length; i++) {
-			dateStr = movies[i].querySelector('.date').textContent;
+			var dateStr = movies[i].querySelector('.date').textContent;
 			/* what time?
 			   if it's a weekday, default to 8pm
 			   if it's a weekend default to 3pm, but add 1 hour for each successive use of the same day...
@@ -29,14 +29,14 @@ var gs_netflix={
 				else {
 					last_time = 20
 				}
-				last_day = date
+				last_day = date;
 			}
-			date.setHours(last_time)
-			// sample: 2015-12-13T15:00
+			date.setHours(last_time);
+			/* sample: 2015-12-13T15:00 */
 			dateStr = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-') + 'T' + last_time + ':00'; 
-			title = movies[i].querySelector('.title a').textContent;
-			loc = window.location;
-			url = movies[i].querySelector('.title a').getAttribute('href');
+			var title = movies[i].querySelector('.title a').textContent;
+			var loc = window.location;
+			var url = movies[i].querySelector('.title a').getAttribute('href');
 			movie_dicts.push({
 				'title': title,
 				'pub_date': dateStr,
@@ -48,7 +48,7 @@ var gs_netflix={
 
 	get_date: function(str) {
 		var bits = str.split('/');
-		date = new Date();
+		var date = new Date();
 		date.setFullYear(bits[2]);
 		date.setMonth(bits[1]-1);
 		date.setDate(bits[0]);
