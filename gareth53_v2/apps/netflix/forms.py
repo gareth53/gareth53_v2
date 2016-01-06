@@ -1,11 +1,11 @@
 from django import forms
 
 class NetflixForm(forms.Form):
+	# TODO: form validation...
 	title1 = forms.CharField()
 	pub_date1 = forms.CharField()
 	url1 = forms.CharField()
-	# TODO: make this a hidden input
-	items = forms.CharField(initial=1)
+	items = forms.CharField(initial=1, widget=forms.HiddenInput())
 
 	def __init__(self, extra=None, *args, **kwargs):
 		super(NetflixForm, self).__init__(*args, **kwargs)

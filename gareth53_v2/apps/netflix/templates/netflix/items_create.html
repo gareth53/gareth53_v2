@@ -2,6 +2,9 @@
 <html>
 <head>
 	<style>
+	#netflixer {
+		overflow:hidden;
+	}
 	#netflixer label {
 		display: none;
 	}
@@ -20,43 +23,14 @@
 </head>
 <body>
 <h1>Adding Netflix Scrobbles</h1>
-{% comment %}
-<p>
-So, I want to be able to create a bookmarklet for different sites that will find 
-data on a webpage and pass it to this URL where I can post it.
-</p>
-<p>
-	My inspiration is the Delicious bookmarklet, which links to <a href="https://delicious.com/save?url=http%3A%2F%2Fwww.google.com%3A8004%2Fitems%2Fcreate%2F&title=Title%20Of%20The%20Document">here</a>.
-</p>
-<p>
-	Obviously this will be more complex, since it will be passing a list of LOTs of potential scrobbles rather than just a simple pair of URL/Title.
-</p>
-<p>
-	It will also have to pass in the SOURCE - or I could hard-code that... hmmm.
-</p>
-<p>
-	I imagine the URL will look like this a stringified JSON blob:
-</p>
-<code>
-{<br />
-	"items": [{<br />
-&nbsp;&nbsp;&nbsp;"title": "Forensic Files: Forensic Files: Collection: \"Dirty Little Seacret\"",<br />
-&nbsp;&nbsp;&nbsp;"pub_date": "2015-12-13T15:00",<br />
-&nbsp;&nbsp;&nbsp;"url": "http://www.netflix.com/title/70198116"<br />
-&nbsp;&nbsp;&nbsp;},<br />
-&nbsp;&nbsp;&nbsp;{<br />
-&nbsp;&nbsp;&nbsp;"title": "No Way Out",<br />
-&nbsp;&nbsp;&nbsp;"pub_date": "2015-12-13T15:00",<br />
-&nbsp;&nbsp;&nbsp;"url": "https://www.netflix.com/WiMovie/810117?trkid=200250783"<br />
-&nbsp;&nbsp;&nbsp;}]<br />
-}
-</code>
-{% endcomment %}
-
-<a href='./?data={"items": [{"url": "http%3A//www.netflix.com/title/70198116", "pub_date": "2015-12-13T15:00", "title": "Forensic Files: Forensic Files: Collection: Dirty Little Seacret"}, {"url": "https%3A//www.netflix.com/WiMovie/810117%3Ftrkid%3D200250783", "pub_date": "2015-12-13T15:00", "title": "No Way Out"}]}'>test</a>
-
-<a href='./?items=2&url1=http%3A//www.netflix.com/title/70198116&pub_date1=2015-12-13T15:00&title1=Forensic Files: Forensic Files: Collection: Dirty Little Seacret&url2=https%3A//www.netflix.com/WiMovie/810117%3Ftrkid%3D200250783&pub_date2=2015-12-13T15:00&title2=No Way Out'>test2</a>
-
+{% if errors %}
+<h2>Errors</h2>
+<ul class="errors">
+	{% for item in errors %}
+	<li>{{ item }}</li>
+	{% endfor %}
+</ul>
+{% endif %}
 {% if createds %}
 <h2>Created</h2>
 <ul class="created">
@@ -83,6 +57,186 @@ data on a webpage and pass it to this URL where I can post it.
 	</div>
 	<input type="submit">
 </form>
+
+<footer>
+	<p>This form has been designed to work with the following bookmarklet: <a href="#" id="demo">Scrobble Netflix</a>. Drag it to your bookmarks bar to install...</p>
+</footer>
+
+<script id="bookmarklet_func">
+var gs_netflix={
+
+	version: '1.0',
+	updated: '2016-01-06',
+	post_url: 'http://local.thisisglobal.com:8004/netflix/items/create/',
+
+	get_movies: function(movies) {
+		var movie_dicts = [];
+		var last_day = undefined;
+		var last_time = undefined;
+		for (var i=0; i < movies.length; i++) {
+			var dateStr = movies[i].querySelector('.date').textContent;
+			/* what time?
+			   if it's a weekday, default to 8pm
+			   if it's a weekend default to 3pm, but add 1 hour for each successive use of the same day...
+			*/
+			var date = this.get_date(dateStr);
+			var weekday = date.getDay();
+			if (dateStr == last_day) {
+				last_time = last_time + 1;
+			}
+			else {
+				last_time = ((weekday == 0) || (weekday == 6)) ? 15:20;
+			}
+			last_day = dateStr;
+			date.setHours(last_time);/* sample: 2015-12-13T15:00 */
+			post_date = [date.getFullYear(), date.getMonth() + 1, date.getDate()].join('-') + 'T' + date.getHours() + ':00'; 
+			var url = this.make_url(movies[i].querySelector('.title a').getAttribute('href'));
+			movie_dicts.push({
+				'title': movies[i].querySelector('.title a').textContent,
+				'pub_date': post_date,
+				'url': url
+			});
+		}
+		return movie_dicts
+	},
+
+	make_url: function(path) {
+		/*
+		converts a href value to an absolute URL
+		*/
+		var loc = window.location;
+		if (path.indexOf('http') === 0) return path;
+		if (path.indexOf('/') === 0) {
+			return loc.protocol + '//' + loc.host + path;
+		}
+		return loc.toString + path;
+	},
+
+	get_date: function(str) {
+		var bits = str.split('/');
+		var date = new Date();
+		date.setFullYear(bits[2]);
+		date.setMonth(bits[1]-1);
+		date.setDate(bits[0]);
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		date.setMilliseconds(0);
+		return date;
+	},
+	
+	dicts_to_querystr: function(data) {
+		var qstr = '?items=' + data.length;
+		var keys = ['title', 'pub_date', 'url'];
+		for (var d=0; d<data.length;d++) {
+			for (var key in keys) {
+				qstr += '&' + keys[key] + parseInt(d+1) + '=' + escape(data[d][keys[key]]);
+			}
+		}
+		return qstr;
+	},
+
+	init: function(){
+		var movies_html = document.getElementsByClassName('retableRow');
+		var form_url = this.post_url;
+		var data = this.get_movies(movies_html);
+		var queryStr = this.dicts_to_querystr(data);
+		window.open(form_url + queryStr, undefined, 'width=500,height=750,scrollbars,statusbar');
+	}
+};
+</script>
+
+{% comment %}
+<h2>Sample Input</h2>
+<ul class="retable">
+	<li class="retableRow" data-series="" data-movieid="810117">
+		<div class="col date nowrap">13/12/2015</div>
+		<div class="col title"><a href="/WiMovie/810117?trkid=200250783">No Way Out</a></div>
+		<div class="col report nowrap">
+			<a class="reportLink status" href="WiMovie/810117">Report a problem</a>
+		</div>
+		<div class="col delete">
+			<a class="deleteBtn" data-vh_index="" data-series="" href="#">×</a>
+		</div>
+	</li>
+	<li class="retableRow" data-series="" data-movieid="70054715">
+		<div class="col date nowrap">13/12/2015</div>
+		<div class="col title">
+			<a href="/WiMovie/70054715?trkid=200250783">The Conformist</a>
+		</div>
+		<div class="col report nowrap">
+			<a class="reportLink status" href="WiMovie/70054715">Report a problem</a>
+		</div>
+		<div class="col delete">
+			<a class="deleteBtn" data-vh_index="" data-series="" href="#">×</a>
+		</div>
+	</li>
+	<li class="retableRow" data-series="80028382" data-movieid="80045895">
+		<div class="col date nowrap">13/12/2015</div>
+		<div class="col title">
+			<a href="/WiMovie/80045895?trkid=200250783"><span class="seriestitle">Partners</span>: Season 1: "They Come Together"</a>
+		</div>
+		<div class="col report nowrap">
+			<a class="reportLink status" href="WiMovie/80045895">Report a problem</a>
+		</div>
+		<div class="col delete">
+			<a class="deleteBtn" data-vh_index="" data-series="80028382" href="#">×</a>
+		</div>
+	</li>
+	<li class="retableRow" data-series="" data-movieid="810117">
+		<div class="col date nowrap">14/12/2015</div>
+		<div class="col title"><a href="/WiMovie/810117?trkid=200250783">CHiPs Season1, Episode 1</a></div>
+		<div class="col report nowrap">
+			<a class="reportLink status" href="WiMovie/810117">Report a problem</a>
+		</div>
+		<div class="col delete">
+			<a class="deleteBtn" data-vh_index="" data-series="" href="#">×</a>
+		</div>
+	</li>
+	<li class="retableRow" data-series="" data-movieid="70054715">
+		<div class="col date nowrap">14/12/2015</div>
+		<div class="col title">
+			<a href="/WiMovie/70054715?trkid=200250783">Scream the Movie</a>
+		</div>
+		<div class="col report nowrap">
+			<a class="reportLink status" href="WiMovie/70054715">Report a problem</a>
+		</div>
+		<div class="col delete">
+			<a class="deleteBtn" data-vh_index="" data-series="" href="#">×</a>
+		</div>
+	</li>
+	<li class="retableRow" data-series="80028382" data-movieid="80045895">
+		<div class="col date nowrap">14/12/2015</div>
+		<div class="col title">
+			<a href="/WiMovie/80045895?trkid=200250783"><span class="seriestitle">The Lovers</span>: Season 1: "They Come Together"</a>
+		</div>
+		<div class="col report nowrap">
+			<a class="reportLink status" href="WiMovie/80045895">Report a problem</a>
+		</div>
+		<div class="col delete">
+			<a class="deleteBtn" data-vh_index="" data-series="80028382" href="#">×</a>
+		</div>
+	</li>
+</ul>
+{% endcomment %}
+
+<script>
+var generate_bookmarklet = function() {
+	var js = document.getElementById('bookmarklet_func').innerHTML;
+	js = js.replace(/[\n\t]/g, '');
+	var bookmarklet_js = 'javascript:' + js + 'gs_netflix.init();';
+	document.getElementById('demo').setAttribute('href', bookmarklet_js);
+}();
+
+var labelify_form_fields = function() {
+	var labels = document.getElementsByTagName('label');
+	for (var label in labels) {
+		var input_id = labels[label].attributes.for.textContent;
+		document.getElementById(input_id).setAttribute('placeholder', labels[label].innerText);
+	}
+}()
+
+</script>
 
 </body>
 </html>

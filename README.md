@@ -6,7 +6,7 @@ My personal site. An aggregator of activity elsewhere on the internets and power
 Sample Feeds
 ------------
 
-* AudioBoo: http://audioboom.com/users/1011/boos/favourites.rss
+* AudioBoom: http://audioboom.com/users/1011/boos/favourites.rss
 * Delicious: http://feeds.delicious.com/v2/rss/gareth53
 * Flickr: http://api.flickr.com/services/feeds/photos_public.gne?id=40517523@N00&lang=en-us&format=rss_200
 * GitHub: https://github.com/gareth53.atom
@@ -18,10 +18,7 @@ Sample Feeds
 * Vimeo Likes: http://vimeo.com/user5479400/likes/rss
 * Wordpress: http://gareth53.wordpress.com/feed/
 * DEAD YouTube: http://gdata.youtube.com/feeds/base/users/gareth53/uploads?alt=rss&v=2&orderby=published&client=ytapi-youtube-profile
-
-
 * https://huffduffer.com/gareth53/rss
-* /mixcloud/gareth53/listens/
 
 
 To Dos

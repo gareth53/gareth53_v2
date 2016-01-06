@@ -6,6 +6,8 @@ from django.shortcuts import render
 from gareth53_v2.apps.lifestream.models import Source, Item
 from .forms import NetflixForm
 
+# TODO - add authentication...
+
 def item_form(request):
     ctxt = {
         'form': NetflixForm()
@@ -13,23 +15,35 @@ def item_form(request):
     if request.POST:
         createds = []
         duplicates = []
+        errors = []
         data = request.POST
+# TODO: valudate form, handle errors
         source = Source.objects.get(name='Netflix')
         item_count = int(data.get('items', '1'))
         for x in range(1, item_count+1):
-            pub_date = datetime.strptime(data['pub_date%d' % x], '%Y-%m-%dT%H:%M')
-            # TODO: add domain name if URL is just a path
-            item, created = Item.objects.get_or_create(feed=source,
-                                                       title=data['title%d' % x],
-                                                       url=data['url%d' % x],
-                                                       pub_date=pub_date)
-            if created:
-                createds.append(item)
+            date = data['pub_date%d' % x]
+            ttl = data['title%d' % x]
+            url = data['url%d' % x]
+            if date and ttl and url:
+                try:
+                    pub_date = datetime.strptime(date, '%Y-%m-%dT%H:%M')
+                except ValueError:
+                    errors.append("Invalid date for %s" % ttl)
+                    continue
+                item, created = Item.objects.get_or_create(feed=source,
+                                                           title=ttl,
+                                                           url=url,
+                                                           pub_date=pub_date)
+                if created:
+                    createds.append(item)
+                else:
+                    duplicates.append(item)
             else:
-                duplicates.append(item)
+                errors.append("Row %s was incomplete" % x)
         ctxt.update({
             'createds': createds,
-            'duplicates': duplicates
+            'duplicates': duplicates,
+            'errors': errors
             })
     elif request.GET:
         data = request.GET
