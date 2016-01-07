@@ -17,7 +17,6 @@ def item_form(request):
         duplicates = []
         errors = []
         data = request.POST
-# TODO: valudate form, handle errors
         source = Source.objects.get(name='Netflix')
         item_count = int(data.get('items', '1'))
         for x in range(1, item_count+1):

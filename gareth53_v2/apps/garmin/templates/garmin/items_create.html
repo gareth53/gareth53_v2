@@ -1,0 +1,30 @@
+<!docytpe html>
+<html>
+<head>
+<title>Add a step count</title>
+</head>
+<body>
+<h1>Adding Steps</h1>
+
+{% if item %}
+<p>Record created! {{ item }}</p>
+{% endif %}
+{% if existing_items %}
+<p>Record NOT created, {{ existing_items|length }} record already exists for that day:
+{% for item in existing_items %}
+	{{ item }}&nbsp;
+{% endfor %}
+</p>
+{% endif %}
+
+{% if form.errors %}
+<p>Ooops! Correct the errors below.</p>
+{% endif %}
+<form method="POST" action="." id="netflixer">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit">
+</form>
+
+</body>
+</html>
