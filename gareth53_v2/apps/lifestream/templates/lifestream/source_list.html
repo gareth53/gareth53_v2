@@ -2,18 +2,25 @@
 
 {% block content %}
 
+<div class="row">
+    <div class="span8">
+    <article>
     <h1>All Feeds</h1>
 
     {% if sources %}
     <ul class="source_list">
         {% for source in sources %}
         <li>
-            <a href="{{ source.get_absolute_url }}">{{ source.name }}</a>
+            <h2><a href="{{ source.get_absolute_url }}">{{ source.name }}</a></h2>
+            {% if source.description %}<p>{{ source.description }}</p>{% endif %}
         </li>
         {% endfor %}
     </ul>
     {% else %}
         <p>No feeds added yet.</p>
     {% endif %}
+    </article>
+    </div>
+</div>
 
 {% endblock %}

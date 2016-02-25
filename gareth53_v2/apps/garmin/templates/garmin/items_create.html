@@ -1,9 +1,6 @@
-<!docytpe html>
-<html>
-<head>
-<title>Add a step count</title>
-</head>
-<body>
+{% extends 'root.html' %}
+
+{% block content %}
 <h1>Adding Steps</h1>
 
 {% if item %}
@@ -26,5 +23,4 @@
 	<input type="submit">
 </form>
 
-</body>
-</html>
+{% endblock %}

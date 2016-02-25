@@ -52,7 +52,7 @@ def item_list(request):
 def source(request, source_slug):
     # TODO: if source is inactive return a 410
     # TODO: get_object_or_404
-    source = Source.objects.get(slug=source_slug, active=True)
+    source = Source.objects.get(slug=source_slug)
     items = Item.objects.filter(feed=source)
     paginator = Paginator(items, 100)
     try:
@@ -72,7 +72,8 @@ def source(request, source_slug):
         'source': source,
         'paginator': paginator,
         'items': curr_page.object_list,
-        'grouping': grouping
+        'grouping': grouping,
+        'curr_page': curr_page
     }
     return render(request, 'lifestream/source.html', context)
 

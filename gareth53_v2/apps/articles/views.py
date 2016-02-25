@@ -8,5 +8,6 @@ def ArticlePage(request, slug):
     this_post = get_object_or_404(Article.objects, slug=slug, status=1)
     return render(request, 'articles/article.html', {
                 'this_article': this_post,
-                'site': 'www.gareth53.co.uk'
+                'site': 'www.gareth53.co.uk',
+                'request': request
             })

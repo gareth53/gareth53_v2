@@ -1,26 +1,50 @@
 <!DOCTYPE html>
-{% load navigation %}
+{% load navigation class_helpers %}
 <html lang="en">
 <head>
 	<title>{% block title %}Gareth Senior{% endblock %}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="author" content="Gareth Senior">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{% block meta_description %}The site of Gareth Senior. Don't expect too much and you won't be disappointed{% endblock %}">
-	<meta name="keywords" content="{% block meta_keywords %}gareth senior huddersfield holmfirth netherthong developer javascript yorkshire capital radio{% endblock %}">
+    {% block metatags %}
+    {% endblock %}
+{% ifequal request.path '/' %}
+    <meta name="description" content="The site of Gareth Senior. Don't expect too much and you won't be disappointed">
+	<meta name="keywords" content="gareth, senior, developer, javascript, python, radio, technical, frontend, fullstack, engineer">
+{% comment %}TODO: opengraph metadata{% endcomment %}
+{% endifequal %}
+
 {% block js_includes %}
 
 {% endblock %}
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-{% block css_includes %}
 
+{% block css_includes %}
+<style>
+body, header {
+    background-image: url('/assets/img/horse.jpg');
+    background-size: 2048px 1367px;
+    background-position: center -200px;
+    background-attachment: fixed;
+}
+</style>
+<link href="/assets/css/bootstrap-responsive-2.3.2.css" rel="stylesheet">
+<link href="/assets/css/gareth53.css" rel="stylesheet">
+<link href="/assets/css/skip_links.css" rel="stylesheet">
 {% endblock %}
 {% block extra_head %}
 
 {% endblock %}
-
+<style type="text/css">
+#container header {
+    background:#999 url(../header/g53_header1.jpg);
+}
+</style>
 </head>
-<body>
+<body class="{% body_class %}">
+<ul id="skip_links">
+    <li><a id="skip_links__nav" href="#nav_links">skip to nav</a></li>
+    <li><a id="skip_links__content" href="#content">skip to content</a></li>
+</ul>
 <div id="wrap">
     <div class="container">
         <header>
@@ -29,7 +53,10 @@
             {% else %}
             <p id="site_title">Gareth Senior</p>
             {% endifequal %}
-            <p>Seeking distractions from boredom. Hoping to be intrigued.</p>
+            <p id="tagline">
+                Developer, Pythonista, Runner, Yorkshireman
+                <span class="hidden">, Gentleman, Dog Walker, Prestidigiteur, Reader, Technologist, Icelandophile, HTFC Fan, Optimist, All-Round Good Egg</span>
+            </p>
         </header>
 
         {% render_navigation %}
@@ -50,7 +77,7 @@
 <div id="footer">
   <div class="container">
     <p class="muted credit">
-        <a href="/rss-feeds.html"><acronym>RSS</acronym> feeds</a>. <a href="about-this-site.html">About this site</a>.
+        &copy; {{ now|date:"Y" }} Gareth Senior
     </p>
   </div>
 </div>

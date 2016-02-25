@@ -1,13 +1,12 @@
 <nav>
     <div class="navbar">
       <div class="navbar-inner">
-        <ul class="nav">
+        <ul class="nav" id="nav_links">
     {% for nav in nav_links %}
             <li{% if nav.upstate %} class="active"{% endif %}>
-                {% if nav.curr_link %}<a href="{{ nav.link }}">{{ nav.text }}</a>{% else %}
+                {% if nav.curr_link %}<em>{{ nav.text }}</em>{% else %}
                 <a href="{{ nav.link }}">{{ nav.text }}</a>
                 {% endif %}
-                </li>
     {% endfor %}
         </ul>
       </div>

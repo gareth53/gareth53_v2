@@ -1,7 +1,6 @@
 from django import forms
 
 class NetflixForm(forms.Form):
-	# TODO: form validation...
 	title1 = forms.CharField()
 	pub_date1 = forms.CharField()
 	url1 = forms.CharField()

@@ -1,15 +1,16 @@
 from datetime import datetime
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from gareth53_v2.apps.lifestream.models import Source, Item
 from .forms import GarminStepsForm
 
-# TODO - add authentication...
 
+@login_required
 def item_form(request):
 	form = GarminStepsForm()
 	item = None
-	existing_item = None
+	existing_items = None
 	if request.POST:
 		form = GarminStepsForm(request.POST)
 		if form.is_valid():
@@ -26,10 +27,12 @@ def item_form(request):
                                                  pub_date__gte=day_st,
                                                  pub_date__lte=day_end)
 			if not existing_items:
+				slug = "%s-%s" % (day_st.strftime('%Y-%m-%d'), steps)
 				item = Item.objects.create(feed=source,
                                        title=ttl,
                                        url='http://www.garminconnect.com/users/gareth.senior/',
-                                       pub_date=day)
+                                       pub_date=day,
+                                       slug=slug)
 	ctxt = {
 		'form': form,
 		'item': item,

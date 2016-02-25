@@ -3,7 +3,9 @@
 
 
 {% block content %}
-
+<div class="row">
+    <div class="span8">
+    <article>
     <h1>{{ source.name }}</h1>
 
     {% if source.description %}
@@ -19,7 +21,9 @@
     </ul>
 
     {% if items %}
+    {% if source.last_check %}
         <p>Last check: {{ source.last_check }}</p>
+    {% endif %}
     {% ifequal grouping 'daily' %}
         <ul>
             {% for item in items %}
@@ -28,19 +32,61 @@
                     <li>{{ item.pub_date|date:"" }}
                         <ul>
                 {% endifchanged %}
-                            <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a> ({{ item.pub_date|date:"h:i A"|lower }})</a></li>
+                    <li>{% if item.slug %}
+                        <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                        {% else %}
+                            {% if item.url %}
+                                <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+                            {% else %}
+                                {{ item.title }}
+                            {% endif %}
+                        {% endif %}
+                        ({{ item.pub_date|date:"h:i A"|lower }})</li>
             {% endfor %}
         </ul>
     {% else %}
     <ul>
         {% for item in items %}
-            <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a> ({{ item.pub_date|date:"y-d-m h:i A"|lower }})</a></li>
+            <li>{% if item.slug %}
+                                <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                                {% else %}
+                                    {% if item.url %}
+                                        <a href="{{ item.url }}" target="_blank">{{ item.title }}</a>
+                                    {% else %}
+                                        {{ item.title }}
+                                    {% endif %}
+                                {% endif %}
+                                ({{ item.pub_date|date:"h:i A"|lower }})</li>
         {% endfor %}
     </ul>
     {% endifequal %}
 
+        {% if curr_page.has_next %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if curr_page.has_previous %}
+                        <a href="?page={{ curr_page.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ curr_page.number }} of {{ paginator.num_pages }}.
+                    </span>
+
+                    {% if curr_page.has_next %}
+                        <a href="?page={{ curr_page.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+
     {% else %}
         <p>No items retrieved from this source.</p>
     {% endif %}
+    </article>
+    </div>
+    <div class="span4">
+
+    </div>
+</div>
 
 {% endblock %}

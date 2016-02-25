@@ -1,6 +1,6 @@
-<!docytpe html>
-<html>
-<head>
+{% extends 'root.html' %}
+
+{% block content %}
 	<style>
 	#netflixer {
 		overflow:hidden;
@@ -20,8 +20,6 @@
 		width:200px;
 	}
 	</style>
-</head>
-<body>
 <h1>Adding Netflix Scrobbles</h1>
 {% if errors %}
 <h2>Errors</h2>
@@ -238,5 +236,4 @@ var labelify_form_fields = function() {
 
 </script>
 
-</body>
-</html>
+{% endblock %}

@@ -2,12 +2,13 @@ import json
 from datetime import datetime 
 
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from gareth53_v2.apps.lifestream.models import Source, Item
 from .forms import NetflixForm
 
-# TODO - add authentication...
 
+@login_required
 def item_form(request):
     ctxt = {
         'form': NetflixForm()
@@ -29,6 +30,8 @@ def item_form(request):
                 except ValueError:
                     errors.append("Invalid date for %s" % ttl)
                     continue
+                # we need a slug
+                # create slug from the URL?
                 item, created = Item.objects.get_or_create(feed=source,
                                                            title=ttl,
                                                            url=url,

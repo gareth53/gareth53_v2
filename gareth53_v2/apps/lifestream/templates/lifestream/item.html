@@ -1,6 +1,8 @@
 {% extends 'root.html' %}
 
 {% block content %}
+<div class="row">
+	<div class="span8">
     <article>
         <h1><a href="{{ item.url }}">{{ item.title }}</a></h1>
 
@@ -10,4 +12,10 @@
 
         <p>{{ item.description|safe }}</p>
     </article>
+	</div>
+	<div class="span4">
+		<h2>Hi!</h2>
+		<p>Source list to inject</p>
+	</div>
+</div>
 {% endblock %}
