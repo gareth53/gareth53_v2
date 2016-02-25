@@ -1,0 +1,22 @@
+#skip_links {
+    margin:0;
+}
+#skip_links,
+#skip_links li {
+    list-style-type:none;
+}
+#skip_links a {
+    position:absolute;
+    left:-999em;
+}
+#skip_links a:focus {
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    text-align:center;
+    padding:1em;
+    background-color:#000;
+    color:#0ff;
+    font-size:1.5em;
+}
